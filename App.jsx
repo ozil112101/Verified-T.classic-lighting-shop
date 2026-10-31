@@ -1,118 +1,147 @@
 import React, { useState } from 'react';
 import { 
   ShoppingBag, Search, User, ShieldCheck, Heart, Menu, X, Plus, Trash2, 
-  ChevronRight, ArrowLeft, Settings, Package, DollarSign, Edit3, Image as ImageIcon, CheckCircle 
+  ArrowLeft, Settings, Package, Image as ImageIcon, Phone, Mail, MessageCircle
 } from 'lucide-react';
 
-// Initial Mock Products across the 4 required sections with multi-image support
+// Exact WhatsApp Catalogue Products + Initial Section Samples
 const INITIAL_PRODUCTS = [
   {
     id: 1,
-    name: "Imperial Crystal Chandelier 8-Tier",
+    name: "Dinning/parlour Nodic lights",
     section: "chandeliers",
-    price: 185000,
-    rating: 4.9,
-    reviews: 124,
-    description: "Breathtaking K9 crystal chandelier designed to cast prismatic reflections across modern living spaces. Built with high-grade polished stainless steel.",
+    price: 65000,
+    originalPrice: 70000,
+    rating: 5.0,
+    reviews: 48,
+    description: "Worthy esthetic lights for parlour and dining room.",
     images: [
       "https://images.unsplash.com/photo-1543198126-a83850366b3f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 2,
+    name: "3 step down chandelier",
+    section: "chandeliers",
+    price: 80000,
+    originalPrice: 90000,
+    rating: 4.9,
+    reviews: 32,
+    description: "3D step down pendant light, with modern generational ambient lighting.",
+    images: [
       "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
-    id: 2,
-    name: "Nordic Minimalist Ring Dropping Light",
-    section: "chandeliers",
-    price: 65000,
-    rating: 4.7,
-    reviews: 89,
-    description: "Sleek aluminum pendant dropping light with integrated dimmable warm LED strips. Perfect for dining islands and executive offices.",
-    images: [
-      "https://images.unsplash.com/photo-1524484485487-4552277d3a5a?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?auto=format&fit=crop&w=800&q=80"
-    ]
-  },
-  {
     id: 3,
-    name: "Ultra-Slim 6W Round POP Ceiling Light",
-    section: "pop",
-    price: 3500,
+    name: "Drop lights (chandeliers)",
+    section: "chandeliers",
+    price: 45000,
+    originalPrice: 50000,
     rating: 4.8,
-    reviews: 310,
-    description: "Energy-saving recessed downlight engineered for seamless false ceiling (POP) installations. Bright 6W output with anti-glare diffuser.",
+    reviews: 19,
+    description: "Visibility and calm in your room, multi-layered crystal finish.",
     images: [
-      "https://images.unsplash.com/photo-1550985616-118121c81e3a?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
     id: 4,
+    name: "Drop light (3 Colour)",
+    section: "chandeliers",
+    price: 45000,
+    originalPrice: 50000,
+    rating: 4.9,
+    reviews: 27,
+    description: "3 colour switchable drop light for versatile indoor moods.",
+    images: [
+      "https://images.unsplash.com/photo-1524484485487-4552277d3a5a?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 5,
+    name: "Pendant light",
+    section: "chandeliers",
+    price: 27000,
+    originalPrice: 30000,
+    rating: 4.7,
+    reviews: 15,
+    description: "Aesthetic for passage and small rooms.",
+    images: [
+      "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 6,
+    name: "Ultra-Slim 6W Round POP Ceiling Light",
+    section: "pop",
+    price: 3500,
+    originalPrice: 4500,
+    rating: 4.8,
+    reviews: 110,
+    description: "Energy-saving recessed downlight engineered for seamless false ceiling (POP) installations.",
+    images: [
+      "https://images.unsplash.com/photo-1550985616-118121c81e3a?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 7,
     name: "12W POP Glass Border Designer Downlight",
     section: "pop",
     price: 7200,
+    originalPrice: 8500,
     rating: 4.9,
-    reviews: 215,
-    description: "Crystal glass rimmed 12W POP ceiling fixture that adds an extra touch of luxury and illumination depth to hallways and living rooms.",
+    reviews: 85,
+    description: "Crystal glass rimmed 12W POP ceiling fixture that adds extra luxury depth to ceilings.",
     images: [
       "https://images.unsplash.com/photo-1540932239986-30128078f3c5?auto=format&fit=crop&w=800&q=80"
     ]
   },
   {
-    id: 5,
+    id: 8,
     name: "Flexible RGB Tape Light / Rope Light (5M)",
     section: "pop",
     price: 8500,
+    originalPrice: 10000,
     rating: 4.6,
-    reviews: 142,
-    description: "High-density flexible LED rope light ideal for hidden cove lighting, tray ceilings, and dramatic architectural contouring.",
-    images: [
-      "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1550985616-118121c81e3a?auto=format&fit=crop&w=800&q=80"
-    ]
-  },
-  {
-    id: 6,
-    name: "Jumia-Curated Artisanal Ceramic Bedside Lamp",
-    section: "tablelamps",
-    price: 24500,
-    rating: 4.9,
-    reviews: 98,
-    description: "Hand-glazed ceramic base paired with a linen drum shade. Creates a calming, soul-soothing ambiance for your bedroom retreat.",
-    images: [
-      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=800&q=80"
-    ]
-  },
-  {
-    id: 7,
-    name: "Modern Touch-Control Minimalist Table Lamp",
-    section: "tablelamps",
-    price: 19000,
-    rating: 4.7,
-    reviews: 76,
-    description: "Sleek metallic bedside lamp featuring 3-level touch brightness dimming and USB charging port built into the base.",
-    images: [
-      "https://images.unsplash.com/photo-1534349762230-e0cadfefcffc?auto=format&fit=crop&w=800&q=80"
-    ]
-  },
-  {
-    id: 8,
-    name: "Geometric 3D LED Wall Art Frame",
-    section: "wallart",
-    price: 45000,
-    rating: 5.0,
     reviews: 64,
-    description: "Illuminated metallic wall sculpture combining abstract modern artistry with tunable ambient LED backlighting.",
+    description: "High-density flexible LED rope light ideal for hidden cove lighting and tray POP ceilings.",
     images: [
-      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1561069933-758b7a54fa34?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 9,
+    name: "Modern Crystal Touch Bedside Table Lamp",
+    section: "tablelamps",
+    price: 27000,
+    originalPrice: 32000,
+    rating: 4.9,
+    reviews: 42,
+    description: "Romantic warm LED bedside light with elegant crystal-style design.",
+    images: [
+      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 10,
+    name: "3D Moon LED Wall Art Frame (60x120cm)",
+    section: "wallart",
+    price: 275000,
+    originalPrice: 300000,
+    rating: 5.0,
+    reviews: 24,
+    description: "Luxury illuminated moon wall art frame with versatile interior decoration.",
+    images: [
+      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80"
     ]
   }
 ];
 
 export default function App() {
-  const [currentView, setCurrentView] = useState('shop'); // 'shop', 'admin', 'detail'
+  const [currentView, setCurrentView] = useState('shop');
   const [selectedSection, setSelectedSection] = useState('all');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -130,8 +159,17 @@ export default function App() {
   const [newTitle, setNewTitle] = useState('');
   const [newSection, setNewSection] = useState('chandeliers');
   const [newPrice, setNewPrice] = useState('');
+  const [newOriginalPrice, setNewOriginalPrice] = useState('');
   const [newDesc, setNewDesc] = useState('');
   const [newImages, setNewImages] = useState(['', '']);
+
+  const whatsappPhone = "2349016453771";
+  const contactEmail = "turkishclassic4@gmail.com";
+
+  const getWhatsAppLink = (productName, price) => {
+    const text = encodeURIComponent(`Hello T.CLASSIC LIGHTING! I am interested in purchasing "${productName}" priced at ₦${price.toLocaleString()}. Please let me know how to proceed.`);
+    return `https://wa.me/${whatsappPhone}?text=${text}`;
+  };
 
   const addToCart = (product) => {
     setCart(prev => {
@@ -162,6 +200,7 @@ export default function App() {
       name: newTitle,
       section: newSection,
       price: Number(newPrice),
+      originalPrice: newOriginalPrice ? Number(newOriginalPrice) : Number(newPrice),
       rating: 5.0,
       reviews: 1,
       description: newDesc || 'Modern lighting masterpiece by T.CLASSIC LIGHTING.',
@@ -170,6 +209,7 @@ export default function App() {
     setProducts([product, ...products]);
     setNewTitle('');
     setNewPrice('');
+    setNewOriginalPrice('');
     setNewDesc('');
     setNewImages(['', '']);
     alert('Product successfully added to store!');
@@ -178,9 +218,17 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800 font-sans">
       
-      {/* Top Banner */}
-      <div className="bg-black text-amber-400 text-xs py-2 px-4 text-center font-medium tracking-wider">
-        T.CLASSIC LIGHTING — <span className="italic text-white">We design to reflect your soul</span>
+      {/* Top Banner with direct contact details */}
+      <div className="bg-black text-amber-400 text-xs py-2 px-4 flex flex-wrap items-center justify-between max-w-7xl mx-auto font-medium">
+        <span>T.CLASSIC LIGHTING — <span className="italic text-white">We design to reflect your soul</span></span>
+        <div className="flex items-center gap-4 text-gray-300">
+          <a href={`https://wa.me/${whatsappPhone}`} target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-amber-400">
+            <Phone size={12} /> 09016453771
+          </a>
+          <a href={`mailto:${contactEmail}`} className="flex items-center gap-1 hover:text-amber-400">
+            <Mail size={12} /> {contactEmail}
+          </a>
+        </div>
       </div>
 
       {/* Main Header / Jumia Style Navigation */}
@@ -199,7 +247,7 @@ export default function App() {
               <span className="pl-3 text-gray-400"><Search size={18} /></span>
               <input 
                 type="text" 
-                placeholder="Search chandeliers, POP lights, table lamps, wall art..." 
+                placeholder="Search chandeliers, POP lights, bedside lamps, wall art..." 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full py-2 px-3 bg-transparent text-sm focus:outline-none"
@@ -211,7 +259,7 @@ export default function App() {
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-4">
             <button 
               onClick={() => setCurrentView('admin')}
               className="flex items-center gap-1.5 text-sm font-medium text-gray-700 hover:text-amber-600 transition"
@@ -236,7 +284,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* Main Content Area */}
+      {/* Main Storefront View */}
       {currentView === 'shop' && !selectedProduct && (
         <main className="max-w-7xl mx-auto px-4 py-6">
           
@@ -245,19 +293,21 @@ export default function App() {
             <div className="max-w-xl">
               <span className="bg-amber-500 text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">New Generation Lighting</span>
               <h1 className="text-3xl md:text-5xl font-extrabold mt-3 mb-4 leading-tight">Illuminate Your World With Elegance</h1>
-              <p className="text-gray-300 text-sm md:text-base mb-6">Explore our curated collections of crystal chandeliers, modern POP fittings, artisan bedside lamps, and LED wall art frames.</p>
+              <p className="text-gray-300 text-sm md:text-base mb-6">Explore our curated collections of crystal chandeliers, dropping lights, POP section lights, table lamps, and 3D LED wall art frames.</p>
               <div className="flex gap-3">
+                <a 
+                  href={`https://wa.me/${whatsappPhone}`} 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2.5 rounded-lg text-sm transition flex items-center gap-2"
+                >
+                  <MessageCircle size={18} /> Chat on WhatsApp
+                </a>
                 <button 
                   onClick={() => setSelectedSection('chandeliers')} 
                   className="bg-amber-500 hover:bg-amber-600 text-black font-semibold px-6 py-2.5 rounded-lg text-sm transition"
                 >
-                  Shop Chandeliers
-                </button>
-                <button 
-                  onClick={() => setSelectedSection('pop')} 
-                  className="border border-white/30 hover:bg-white/10 text-white font-semibold px-6 py-2.5 rounded-lg text-sm transition"
-                >
-                  POP Collection
+                  Shop Catalog
                 </button>
               </div>
             </div>
@@ -266,9 +316,9 @@ export default function App() {
           {/* Section Filter Tabs */}
           <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
             {[
-              { id: 'all', label: 'All Products' },
-              { id: 'chandeliers', label: 'Crystal Chandeliers & Dropping Lights' },
-              { id: 'pop', label: 'POP Section (6W/12W/Tape)' },
+              { id: 'all', label: 'All Catalogue Products' },
+              { id: 'chandeliers', label: 'Chandeliers & Nordic Dropping Lights' },
+              { id: 'pop', label: 'POP Section (6W/12W Glass/Tape Light)' },
               { id: 'tablelamps', label: 'Table & Bedside Lamps' },
               { id: 'wallart', label: 'LED Wall Art Frames' }
             ].map(tab => (
@@ -286,7 +336,7 @@ export default function App() {
             ))}
           </div>
 
-          {/* Product Grid */}
+          {/* Product Grid matching WhatsApp Catalogue layout */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredProducts.map(product => (
               <div 
@@ -316,18 +366,31 @@ export default function App() {
                   <h3 className="font-semibold text-gray-900 text-sm line-clamp-2 mb-1 group-hover:text-amber-600 transition">
                     {product.name}
                   </h3>
-                  <div className="text-lg font-extrabold text-black mt-auto mb-2">
-                    ₦{product.price.toLocaleString()}
+                  <p className="text-xs text-gray-500 line-clamp-1 mb-2">{product.description}</p>
+                  
+                  <div className="flex items-baseline gap-2 mt-auto mb-3">
+                    <span className="text-lg font-extrabold text-black">₦{product.price.toLocaleString()}</span>
+                    {product.originalPrice > product.price && (
+                      <span className="text-xs text-gray-400 line-through">₦{product.originalPrice.toLocaleString()}</span>
+                    )}
                   </div>
                   
-                  <div className="flex items-center justify-between pt-2 border-t border-gray-100">
-                    <span className="text-xs text-gray-500">⭐ {product.rating} ({product.reviews})</span>
+                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-gray-100">
                     <button 
                       onClick={(e) => { e.stopPropagation(); addToCart(product); }}
-                      className="bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold px-3 py-1.5 rounded transition shadow-sm"
+                      className="bg-gray-100 hover:bg-gray-200 text-gray-900 text-xs font-semibold py-2 rounded transition"
                     >
-                      Add to Cart
+                      Add Cart
                     </button>
+                    <a 
+                      href={getWhatsAppLink(product.name, product.price)}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="bg-green-600 hover:bg-green-700 text-white text-xs font-semibold py-2 rounded transition text-center flex items-center justify-center gap-1"
+                    >
+                      <MessageCircle size={14} /> Buy Now
+                    </a>
                   </div>
                 </div>
               </div>
@@ -337,7 +400,7 @@ export default function App() {
         </main>
       )}
 
-      {/* Product Detail View (with Multi-Picture Gallery) */}
+      {/* Product Detail View */}
       {selectedProduct && (
         <div className="max-w-6xl mx-auto px-4 py-8">
           <button 
@@ -386,29 +449,32 @@ export default function App() {
                 <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 mt-3 mb-2">
                   {selectedProduct.name}
                 </h1>
-                <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-                  <span>⭐ {selectedProduct.rating} / 5.0</span>
-                  <span>•</span>
-                  <span>{selectedProduct.reviews} verified reviews</span>
-                </div>
-                <div className="text-3xl font-black text-amber-600 mb-6">
-                  ₦{selectedProduct.price.toLocaleString()}
+                <div className="flex items-baseline gap-3 mb-4">
+                  <span className="text-3xl font-black text-amber-600">₦{selectedProduct.price.toLocaleString()}</span>
+                  {selectedProduct.originalPrice > selectedProduct.price && (
+                    <span className="text-sm text-gray-400 line-through">₦{selectedProduct.originalPrice.toLocaleString()}</span>
+                  )}
                 </div>
                 <p className="text-gray-600 text-sm leading-relaxed mb-6">
                   {selectedProduct.description}
                 </p>
               </div>
 
-              <div className="space-y-4 pt-6 border-t border-gray-200">
+              <div className="space-y-3 pt-6 border-t border-gray-200">
+                <a 
+                  href={getWhatsAppLink(selectedProduct.name, selectedProduct.price)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl transition shadow flex items-center justify-center gap-2"
+                >
+                  <MessageCircle size={20} /> Order via WhatsApp (09016453771)
+                </a>
                 <button 
                   onClick={() => addToCart(selectedProduct)}
-                  className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3.5 rounded-xl transition shadow-md flex items-center justify-center gap-2"
+                  className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl transition shadow flex items-center justify-center gap-2"
                 >
-                  <ShoppingBag size={20} /> Add to Cart
+                  <ShoppingBag size={20} /> Add to Store Cart
                 </button>
-                <div className="text-xs text-gray-500 text-center">
-                  🔒 Secure checkout powered by T.CLASSIC LIGHTING • Nationwide delivery available.
-                </div>
               </div>
             </div>
 
@@ -416,290 +482,124 @@ export default function App() {
         </div>
       )}
 
-      {/* Admin Dashboard / Login View */}
+      {/* Admin Dashboard */}
       {currentView === 'admin' && (
         <div className="max-w-5xl mx-auto px-4 py-8">
           {!isAdminLoggedIn ? (
             <div className="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-md border border-gray-200">
               <div className="text-center mb-6">
                 <ShieldCheck size={40} className="mx-auto text-amber-500 mb-2" />
-                <h2 className="text-2xl font-bold text-gray-900">Admin Dashboard Login</h2>
-                <p className="text-xs text-gray-500 mt-1">Manage your inventory, pricing, and multi-picture product galleries.</p>
+                <h2 className="text-2xl font-bold text-gray-900">Admin Login</h2>
               </div>
-
-              <form onSubmit={(e) => {
-                e.preventDefault();
-                if (adminEmail && adminPassword) {
-                  setIsAdminLoggedIn(true);
-                } else {
-                  alert('Please enter your admin credentials.');
-                }
-              }} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-semibold uppercase text-gray-600 mb-1">Admin Email or Username</label>
-                  <input 
-                    type="text" 
-                    placeholder="e.g. admin@tclassiclighting.com" 
-                    value={adminEmail}
-                    onChange={(e) => setAdminEmail(e.target.value)}
-                    className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-amber-500"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold uppercase text-gray-600 mb-1">Password</label>
-                  <input 
-                    type="password" 
-                    placeholder="••••••••" 
-                    value={adminPassword}
-                    onChange={(e) => setAdminPassword(e.target.value)}
-                    className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-amber-500"
-                    required
-                  />
-                </div>
-                <button 
-                  type="submit"
-                  className="w-full bg-black hover:bg-gray-800 text-amber-400 font-bold py-3 rounded-lg text-sm transition shadow"
-                >
-                  Access Dashboard
-                </button>
+              <form onSubmit={(e) => { e.preventDefault(); if (adminEmail && adminPassword) setIsAdminLoggedIn(true); }} className="space-y-4">
+                <input 
+                  type="text" 
+                  placeholder="Admin Email" 
+                  value={adminEmail} 
+                  onChange={(e) => setAdminEmail(e.target.value)} 
+                  className="w-full p-3 bg-gray-50 border rounded-lg text-sm"
+                  required 
+                />
+                <input 
+                  type="password" 
+                  placeholder="Password" 
+                  value={adminPassword} 
+                  onChange={(e) => setAdminPassword(e.target.value)} 
+                  className="w-full p-3 bg-gray-50 border rounded-lg text-sm"
+                  required 
+                />
+                <button type="submit" className="w-full bg-black text-amber-400 font-bold py-3 rounded-lg text-sm">Access Dashboard</button>
               </form>
             </div>
           ) : (
             <div className="space-y-8">
-              {/* Dashboard Header */}
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-200 gap-4">
-                <div>
-                  <h1 className="text-2xl font-extrabold text-gray-900">T.CLASSIC LIGHTING Admin</h1>
-                  <p className="text-xs text-gray-500">Manage store catalog, pricing, and multi-image sections.</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <button 
-                    onClick={() => setCurrentView('shop')}
-                    className="bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-semibold px-4 py-2 rounded-lg transition"
-                  >
-                    View Storefront
-                  </button>
-                  <button 
-                    onClick={() => setIsAdminLoggedIn(false)}
-                    className="bg-red-50 hover:bg-red-100 text-red-600 text-sm font-semibold px-4 py-2 rounded-lg transition"
-                  >
-                    Log Out
-                  </button>
-                </div>
+              <div className="flex justify-between items-center bg-white p-6 rounded-2xl border">
+                <h1 className="text-2xl font-extrabold">T.CLASSIC Admin Dashboard</h1>
+                <button onClick={() => setIsAdminLoggedIn(false)} className="bg-red-50 text-red-600 px-4 py-2 rounded-lg text-sm font-semibold">Log Out</button>
               </div>
 
               {/* Add Product Form */}
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-                <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <Plus size={20} className="text-amber-500" /> Add New Modern Lighting Product
-                </h2>
-                
+              <div className="bg-white p-6 rounded-2xl border space-y-4">
+                <h2 className="font-bold text-lg">Add Product to Catalogue</h2>
                 <form onSubmit={handleAddProduct} className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-600 uppercase mb-1">Product Name</label>
-                      <input 
-                        type="text" 
-                        placeholder="e.g. Nordic Gold Pendant Light" 
-                        value={newTitle}
-                        onChange={(e) => setNewTitle(e.target.value)}
-                        className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-amber-500"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-600 uppercase mb-1">Section Category</label>
-                      <select 
-                        value={newSection}
-                        onChange={(e) => setNewSection(e.target.value)}
-                        className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-amber-500"
-                      >
-                        <option value="chandeliers">Crystal Chandeliers & Dropping Lights</option>
-                        <option value="pop">POP Section (6W/12W/Tape)</option>
-                        <option value="tablelamps">Table & Bedside Lamps</option>
-                        <option value="wallart">LED Wall Art Frame</option>
-                      </select>
-                    </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <input type="text" placeholder="Product Name" value={newTitle} onChange={e => setNewTitle(e.target.value)} className="p-3 bg-gray-50 border rounded-lg text-sm" required />
+                    <select value={newSection} onChange={e => setNewSection(e.target.value)} className="p-3 bg-gray-50 border rounded-lg text-sm">
+                      <option value="chandeliers">Chandeliers & Dropping Lights</option>
+                      <option value="pop">POP Section</option>
+                      <option value="tablelamps">Table & Bedside Lamps</option>
+                      <option value="wallart">LED Wall Art Frame</option>
+                    </select>
                   </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-600 uppercase mb-1">Price (₦)</label>
-                      <input 
-                        type="number" 
-                        placeholder="e.g. 50000" 
-                        value={newPrice}
-                        onChange={(e) => setNewPrice(e.target.value)}
-                        className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-amber-500"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-600 uppercase mb-1">Primary Image URL</label>
-                      <input 
-                        type="url" 
-                        placeholder="https://images.unsplash.com/..." 
-                        value={newImages[0]}
-                        onChange={(e) => {
-                          const updated = [...newImages];
-                          updated[0] = e.target.value;
-                          setNewImages(updated);
-                        }}
-                        className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-amber-500"
-                        required
-                      />
-                    </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <input type="number" placeholder="Discount Price (₦)" value={newPrice} onChange={e => setNewPrice(e.target.value)} className="p-3 bg-gray-50 border rounded-lg text-sm" required />
+                    <input type="number" placeholder="Original Price (₦)" value={newOriginalPrice} onChange={e => setNewOriginalPrice(e.target.value)} className="p-3 bg-gray-50 border rounded-lg text-sm" />
                   </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-600 uppercase mb-1">Secondary Image URL (Multi-Picture Support)</label>
-                    <input 
-                      type="url" 
-                      placeholder="https://images.unsplash.com/... (additional angle)" 
-                      value={newImages[1]}
-                      onChange={(e) => {
-                        const updated = [...newImages];
-                        updated[1] = e.target.value;
-                        setNewImages(updated);
-                      }}
-                      className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-amber-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-600 uppercase mb-1">Description</label>
-                    <textarea 
-                      placeholder="Describe the lighting fixture..." 
-                      value={newDesc}
-                      onChange={(e) => setNewDesc(e.target.value)}
-                      rows={3}
-                      className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-amber-500"
-                    />
-                  </div>
-
-                  <button 
-                    type="submit" 
-                    className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 py-3 rounded-lg text-sm transition shadow"
-                  >
-                    Publish Product to Store
-                  </button>
+                  <input type="url" placeholder="Primary Image URL" value={newImages[0]} onChange={e => setNewImages([e.target.value, newImages[1]])} className="w-full p-3 bg-gray-50 border rounded-lg text-sm" required />
+                  <input type="url" placeholder="Secondary Image URL" value={newImages[1]} onChange={e => setNewImages([newImages[0], e.target.value])} className="w-full p-3 bg-gray-50 border rounded-lg text-sm" />
+                  <textarea placeholder="Description" value={newDesc} onChange={e => setNewDesc(e.target.value)} className="w-full p-3 bg-gray-50 border rounded-lg text-sm" rows={2} />
+                  <button type="submit" className="bg-amber-500 text-white font-bold px-6 py-3 rounded-lg text-sm">Publish Product</button>
                 </form>
               </div>
-
-              {/* Inventory List */}
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-                <h2 className="text-lg font-bold text-gray-900 mb-4">Current Store Inventory ({products.length} items)</h2>
-                <div className="space-y-3">
-                  {products.map(p => (
-                    <div key={p.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-200">
-                      <div className="flex items-center gap-3">
-                        <img src={p.images[0]} alt="" className="w-12 h-12 rounded-lg object-cover" />
-                        <div>
-                          <h4 className="font-semibold text-sm text-gray-900">{p.name}</h4>
-                          <span className="text-xs text-amber-600 uppercase font-medium">{p.section} • ₦{p.price.toLocaleString()}</span>
-                        </div>
-                      </div>
-                      <button 
-                        onClick={() => setProducts(products.filter(item => item.id !== p.id))}
-                        className="text-red-500 hover:text-red-700 p-2 transition"
-                      >
-                        <Trash2 size={18} />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
             </div>
           )}
         </div>
       )}
 
-      {/* Cart Drawer Modal */}
+      {/* Cart Drawer */}
       {isCartOpen && (
-        <div className="fixed inset-0 z-50 overflow-hidden bg-black/50 backdrop-blur-sm flex justify-end">
-          <div className="w-full max-w-md bg-white h-full shadow-2xl flex flex-col p-6 animate-in slide-in-from-right duration-300">
-            <div className="flex items-center justify-between pb-4 border-b border-gray-200">
-              <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <ShoppingBag size={20} className="text-amber-500" /> Your Cart
-              </h2>
-              <button onClick={() => setIsCartOpen(false)} className="text-gray-400 hover:text-black">
-                <X size={20} />
-              </button>
-            </div>
-
-            <div className="flex-1 overflow-y-auto py-4 space-y-4">
-              {cart.length === 0 ? (
-                <div className="text-center py-20 text-gray-400">
-                  <ShoppingBag size={48} className="mx-auto mb-3 opacity-30" />
-                  <p>Your cart is empty.</p>
-                </div>
-              ) : (
-                cart.map(item => (
-                  <div key={item.id} className="flex items-center gap-4 bg-gray-50 p-3 rounded-xl border border-gray-200">
-                    <img src={item.images[0]} alt="" className="w-16 h-16 object-cover rounded-lg" />
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-xs text-gray-900 line-clamp-1">{item.name}</h4>
-                      <div className="text-sm font-bold text-black mt-1">₦{item.price.toLocaleString()}</div>
-                      <div className="text-xs text-gray-500 mt-1">Qty: {item.qty}</div>
-                    </div>
-                    <button 
-                      onClick={() => setCart(cart.filter(i => i.id !== item.id))}
-                      className="text-gray-400 hover:text-red-600 p-1"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                ))
-              )}
-            </div>
-
-            {cart.length > 0 && (
-              <div className="pt-4 border-t border-gray-200 space-y-3">
-                <div className="flex justify-between text-base font-bold text-gray-900">
-                  <span>Subtotal:</span>
-                  <span className="text-amber-600">
-                    ₦{cart.reduce((sum, item) => sum + (item.price * item.qty), 0).toLocaleString()}
-                  </span>
-                </div>
-                <button 
-                  onClick={() => { alert('Order placed successfully! Thank you for shopping with T.CLASSIC LIGHTING.'); setCart([]); setIsCartOpen(false); }}
-                  className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl transition shadow"
-                >
-                  Proceed to Checkout
-                </button>
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex justify-end">
+          <div className="w-full max-w-md bg-white h-full p-6 flex flex-col justify-between">
+            <div>
+              <div className="flex justify-between items-center pb-4 border-b">
+                <h2 className="font-bold text-lg">Your Cart</h2>
+                <button onClick={() => setIsCartOpen(false)}><X size={20} /></button>
               </div>
+              <div className="py-4 space-y-3">
+                {cart.length === 0 ? <p className="text-gray-400 text-center py-10">Cart is empty</p> : cart.map(item => (
+                  <div key={item.id} className="flex justify-between items-center p-3 bg-gray-50 rounded-xl border">
+                    <div>
+                      <h4 className="font-semibold text-xs">{item.name}</h4>
+                      <p className="text-sm font-bold mt-1">₦{item.price.toLocaleString()} x {item.qty}</p>
+                    </div>
+                    <button onClick={() => setCart(cart.filter(i => i.id !== item.id))} className="text-red-500"><Trash2 size={16} /></button>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {cart.length > 0 && (
+              <a 
+                href={`https://wa.me/${whatsappPhone}?text=${encodeURIComponent(`Hello T.CLASSIC LIGHTING! I want to order the following items from my cart:\n` + cart.map(i => `- ${i.name} (Qty: ${i.qty}) = ₦${(i.price * i.qty).toLocaleString()}`).join('\n') + `\nTotal: ₦${cart.reduce((sum, item) => sum + (item.price * item.qty), 0).toLocaleString()}`)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full bg-green-600 text-white font-bold py-3 rounded-xl text-center block"
+              >
+                Checkout on WhatsApp
+              </a>
             )}
           </div>
         </div>
       )}
 
-      {/* Footer */}
+      {/* Footer with Contact Info */}
       <footer className="bg-black text-white py-10 mt-16 border-t border-amber-500/20">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
           <div>
             <h3 className="text-lg font-black text-amber-400 mb-2">T.CLASSIC LIGHTING</h3>
             <p className="text-gray-400 italic text-xs mb-3">"We design to reflect your soul"</p>
-            <p className="text-gray-400 text-xs">Your premier destination for modern generational lighting, crystal chandeliers, POP fittings, and artisan bedside lamps.</p>
+            <p className="text-gray-400 text-xs">Modern generational lighting, crystal chandeliers, POP fittings, bedside lamps, and wall art frames.</p>
           </div>
           <div>
-            <h4 className="font-bold uppercase tracking-wider text-xs text-amber-400 mb-3">Quick Sections</h4>
-            <ul className="space-y-2 text-gray-300 text-xs">
-              <li><button onClick={() => setSelectedSection('chandeliers')}>Crystal Chandeliers & Dropping Lights</button></li>
-              <li><button onClick={() => setSelectedSection('pop')}>POP Section (6W, 12W Glass, Tape Light)</button></li>
-              <li><button onClick={() => setSelectedSection('tablelamps')}>Table & Bedside Lamps</button></li>
-              <li><button onClick={() => setSelectedSection('wallart')}>LED Wall Art Frames</button></li>
-            </ul>
+            <h4 className="font-bold uppercase text-xs text-amber-400 mb-3">Direct Contact</h4>
+            <p className="text-gray-300 text-xs mb-1">WhatsApp: <strong>09016453771</strong></p>
+            <p className="text-gray-300 text-xs mb-1">Email: <strong>turkishclassic4@gmail.com</strong></p>
           </div>
           <div>
-            <h4 className="font-bold uppercase tracking-wider text-xs text-amber-400 mb-3">Customer Support</h4>
-            <p className="text-gray-400 text-xs mb-2">Need assistance with architectural lighting design or installation? Contact our expert engineering team.</p>
-            <p className="text-amber-400 font-semibold text-xs">support@tclassiclighting.com</p>
+            <h4 className="font-bold uppercase text-xs text-amber-400 mb-3">Customer Support</h4>
+            <a href={`https://wa.me/${whatsappPhone}`} target="_blank" rel="noreferrer" className="bg-green-600 hover:bg-green-700 text-white text-xs font-bold px-4 py-2 rounded inline-block">
+              Message us on WhatsApp
+            </a>
           </div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 pt-6 mt-8 border-t border-gray-800 text-center text-xs text-gray-500">
-          © {new Date().getFullYear()} T.CLASSIC LIGHTING. All rights reserved.
         </div>
       </footer>
 
